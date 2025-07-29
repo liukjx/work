@@ -7,6 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 Spring Boot 3.5.4 web application with MyBatis-Plus ORM and Hutool utilities. Uses MySQL database and follows standard Spring Boot conventions.
 
+有涉及MySQL交互尽量使用MyBatisPlus和Hutool工具类
+
+所有的类,属性,方法上都使用JavaDoc 描述功能,目的
+
+设计新的表，需要生成相应的MySQL语句，
+
+Java属性使用小驼峰命名,使用mybatisplus的 @TableName标记表名, @TableField指定下划线命名
+
 ## Core Commands
 ```bash
 # Development
