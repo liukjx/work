@@ -1,4 +1,4 @@
-package com.com.huawei.ipd.xinhuo.chipautotest.model.autotest;
+package com.com.rename.ipd.hhh.chipautotest.model.autotest;
 
 import java.util.List;
 

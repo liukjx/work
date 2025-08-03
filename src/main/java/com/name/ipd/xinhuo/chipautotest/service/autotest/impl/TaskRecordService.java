@@ -1,34 +1,32 @@
-/*
- * Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
- */
 
-package com.huawei.ipd.xinhuo.chipautotest.service.autotest.impl;
 
-import com.com.huawei.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestTaskInfoVO;
-import com.huawei.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestDataAnalysisDao;
-import com.huawei.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestSubtasksDao;
-import com.huawei.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestTaskInfoDao;
-import com.huawei.ipd.xinhuo.chipautotest.dao.configmanage.HpmConfigDao;
-import com.huawei.ipd.xinhuo.chipautotest.dao.configmanage.PowerHpmConfigDao;
-import com.huawei.ipd.xinhuo.chipautotest.model.BusinessException;
-import com.huawei.ipd.xinhuo.chipautotest.model.XinHuoUserInfo;
-import com.huawei.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestSubtasks;
-import com.huawei.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestTaskInfo;
-import com.huawei.ipd.xinhuo.chipautotest.model.autotest.PowerDomainHpmVO;
-import com.huawei.ipd.xinhuo.chipautotest.model.configmanage.HpmConfigVO;
-import com.huawei.ipd.xinhuo.chipautotest.model.configmanage.PowerDomainFrequencyVO;
-import com.huawei.ipd.xinhuo.chipautotest.model.constants.CommonConstants;
-import com.huawei.ipd.xinhuo.chipautotest.model.record.HpmSheetData;
-import com.huawei.ipd.xinhuo.chipautotest.model.record.HpmTestResult;
-import com.huawei.ipd.xinhuo.chipautotest.model.record.SheetData;
-import com.huawei.ipd.xinhuo.chipautotest.model.record.VMinSheetData;
-import com.huawei.ipd.xinhuo.chipautotest.service.autotest.IChipAutoTestSubtasksService;
-import com.huawei.ipd.xinhuo.chipautotest.service.autotest.IChipAutoTestTaskInfoService;
-import com.huawei.ipd.xinhuo.chipautotest.service.autotest.IDataArchivingService;
-import com.huawei.ipd.xinhuo.chipautotest.service.autotest.ITaskRecordService;
-import com.huawei.ipd.xinhuo.chipautotest.utils.FileUtils;
-import com.huawei.ipd.xinhuo.chipautotest.utils.basicdata.UserUtil;
-import com.huawei.ipd.xinhuo.chipautotest.utils.excel.easypoi.ExcelUtil;
+package com.name.ipd.xinhuo.chipautotest.service.autotest.impl;
+
+import com.com.rename.ipd.hhh.chipautotest.model.autotest.ChipAutoTestTaskInfoVO;
+import com.hhh.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestDataAnalysisDao;
+import com.hhh.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestSubtasksDao;
+import com.hhh.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestTaskInfoDao;
+import com.hhh.ipd.xinhuo.chipautotest.dao.configmanage.HpmConfigDao;
+import com.hhh.ipd.xinhuo.chipautotest.dao.configmanage.PowerHpmConfigDao;
+import com.hhh.ipd.xinhuo.chipautotest.model.BusinessException;
+import com.hhh.ipd.xinhuo.chipautotest.model.XinHuoUserInfo;
+import com.hhh.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestSubtasks;
+import com.hhh.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestTaskInfo;
+import com.hhh.ipd.xinhuo.chipautotest.model.autotest.PowerDomainHpmVO;
+import com.hhh.ipd.xinhuo.chipautotest.model.configmanage.HpmConfigVO;
+import com.hhh.ipd.xinhuo.chipautotest.model.configmanage.PowerDomainFrequencyVO;
+import com.hhh.ipd.xinhuo.chipautotest.model.constants.CommonConstants;
+import com.hhh.ipd.xinhuo.chipautotest.model.record.HpmSheetData;
+import com.hhh.ipd.xinhuo.chipautotest.model.record.HpmTestResult;
+import com.hhh.ipd.xinhuo.chipautotest.model.record.SheetData;
+import com.hhh.ipd.xinhuo.chipautotest.model.record.VMinSheetData;
+import com.hhh.ipd.xinhuo.chipautotest.service.autotest.IChipAutoTestSubtasksService;
+import com.hhh.ipd.xinhuo.chipautotest.service.autotest.IChipAutoTestTaskInfoService;
+import com.hhh.ipd.xinhuo.chipautotest.service.autotest.IDataArchivingService;
+import com.hhh.ipd.xinhuo.chipautotest.service.autotest.ITaskRecordService;
+import com.hhh.ipd.xinhuo.chipautotest.utils.FileUtils;
+import com.hhh.ipd.xinhuo.chipautotest.utils.basicdata.UserUtil;
+import com.hhh.ipd.xinhuo.chipautotest.utils.excel.easypoi.ExcelUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

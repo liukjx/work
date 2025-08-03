@@ -1,8 +1,5 @@
-/*
- * Copyright (c) Huawei Technologies Co., Ltd. 2025-2025. All rights reserved.
- */
 
-package com.huawei.ipd.xinhuo.chipautotest.utils;
+package com.name.ipd.xinhuo.chipautotest.utils;
 
 import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
 import cn.hutool.core.collection.CollectionUtil;
