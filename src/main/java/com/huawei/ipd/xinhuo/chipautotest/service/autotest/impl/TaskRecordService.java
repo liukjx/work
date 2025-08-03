@@ -4,6 +4,7 @@
 
 package com.huawei.ipd.xinhuo.chipautotest.service.autotest.impl;
 
+import com.com.huawei.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestTaskInfoVO;
 import com.huawei.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestDataAnalysisDao;
 import com.huawei.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestSubtasksDao;
 import com.huawei.ipd.xinhuo.chipautotest.dao.autotest.ChipAutoTestTaskInfoDao;
@@ -13,7 +14,6 @@ import com.huawei.ipd.xinhuo.chipautotest.model.BusinessException;
 import com.huawei.ipd.xinhuo.chipautotest.model.XinHuoUserInfo;
 import com.huawei.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestSubtasks;
 import com.huawei.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestTaskInfo;
-import com.huawei.ipd.xinhuo.chipautotest.model.autotest.ChipAutoTestTaskInfoVO;
 import com.huawei.ipd.xinhuo.chipautotest.model.autotest.PowerDomainHpmVO;
 import com.huawei.ipd.xinhuo.chipautotest.model.configmanage.HpmConfigVO;
 import com.huawei.ipd.xinhuo.chipautotest.model.configmanage.PowerDomainFrequencyVO;
@@ -851,6 +851,24 @@ public class TaskRecordService implements ITaskRecordService {
 
                 // 设置keyWord行数据
                 rowData.put(keyWordColumKey, keyWordValue);
+
+                // 动态处理其他键值对
+                if (isExcel && valueMap != null) {
+                    for (Map.Entry<Object, Object> dynamicEntry : valueMap.entrySet()) {
+                        String dynamicKey = String.valueOf(dynamicEntry.getKey());
+                        Object dynamicValue = dynamicEntry.getValue();
+                        
+                        // 跳过已经处理的固定字段
+                        if ("vmin".equals(dynamicKey) || "tsonser".equals(dynamicKey) || "keyWord".equals(dynamicKey) || "name".equals(dynamicKey)) {
+                            continue;
+                        }
+                        
+                        // 构建动态列名和键
+                        String dynamicColumName = getVMinColumName(powerDomainFrequency, dynamicKey);
+                        String dynamicColumKey = getVMinColumKey(vMinColumGroupName, dynamicColumName);
+                        rowData.put(dynamicColumKey, dynamicValue);
+                    }
+                }
             }
         }
     }
@@ -923,7 +941,7 @@ public class TaskRecordService implements ITaskRecordService {
             // vMin列分组名称
             String vMinColumGroupName = getVMinColumGroupName(temperature);
 
-            // vMin动态列设置
+            // vMin动态列设置（包含vmin、tsonser、keyWord和动态列）
             vMinColumConfig(vMinColumGroupName, cornerFrequencyMap, excelExportEntities, powerDomainName);
         }
 
@@ -991,6 +1009,9 @@ public class TaskRecordService implements ITaskRecordService {
                     keyWord.setOrderNum(++orderNum);
                     excelExportEntities.add(keyWord);
                 }
+
+                // 为动态列预留位置，在数据填充时根据实际JSON数据生成
+                // 动态列将在assembleRowData中处理
             }
 
             // 第一次执行完获取列就终止
